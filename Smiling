@@ -13,7 +13,7 @@ local entity = spawner.Create({
 	Lights = {
 		Flicker = {
 			Enabled = true,
-			Duration = 10
+			Duration = 6
 		},
 		Shatter = true,
 		Repair = false
@@ -60,6 +60,8 @@ local entity = spawner.Create({
 
 entity:SetCallback("OnSpawned", function()
     print("Entity has spawned")
+    game.Lighting.MainColorCorrection.TintColor = Color3.fromRGB(190, 86, 17)
+game.Lighting.MainColorCorrection.Contrast = 1
 end)
 
 entity:SetCallback("OnStartMoving", function()
@@ -72,6 +74,7 @@ entity:SetCallback("OnEnterRoom", function(room, firstTime)
     else
         print("Entity has entered room: ".. room.Name.. " again")
     end
+    game.Lighting.Ambient = Color3.fromRGB(190, 86, 17)
 end)
 
 entity:SetCallback("OnLookAt", function(lineOfSight)
@@ -104,6 +107,7 @@ entity:SetCallback("OnDamagePlayer", function(newHealth)
 	else
 		print("Entity has damaged the player")
 	end
+  game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Smiling"
 end)
 
 --[[
