@@ -117,6 +117,14 @@ By overwriting 'CrucifixionOverwrite' the default crucifixion callback will be r
 
 entity:SetCallback("CrucifixionOverwrite", function()
     print("Custom crucifixion callback")
+
+local player = game.Players:GetPlayerFromCharacter(crucifixTarget.Parent)
+    if player then
+        local tool = player.Character:FindFirstChild("Crucifix") or player.Backpack:FindFirstChild("Crucifix")
+        if tool then
+            tool:Destroy()
+        end
+    end
 end)
 
 ]]--
