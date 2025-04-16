@@ -47,7 +47,7 @@ local entity = spawner.Create({
 		Enabled = true,
 		Range = 70,
 		Resist = false,
-		Break = true
+		Crucifix.Tool:destroy()
 	},
 	Death = {
 		Type = "Guiding", -- "Curious"
