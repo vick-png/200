@@ -1,0 +1,164 @@
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+local entity = spawner.Create({
+	Entity = {
+		Name = "Depth",
+		Asset = "rbxassetid://131634451393304",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = false,
+			Duration = 1
+		},
+		Shatter = true,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = false,
+		Range = 100,
+		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 150,
+		Delay = 6,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = true,
+		Type = "Ambush", -- "Blitz"
+		Min = 3,
+		Max = 3,
+		Delay = 0
+	},
+	Damage = {
+		Enabled = true,
+		Range = 80,
+		Amount = 0.01
+	},
+	Crucifixion = {
+		Enabled = true,
+		Range = 66,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"Death", "Hints", "Go", "Here"},
+		Cause = ""
+	}
+})
+
+---====== Debug entity ======---
+
+entity:SetCallback("OnSpawned", function()
+    print("Entity has spawned")
+local sound = Instance.new("Sound")
+sound.Parent = workspace.Depth
+sound.SoundId = "rbxassetid://8399859908"
+sound.Volume = 0.5
+sound.PlaybackSpeed = 0.3
+local a = Instance.new("DistortionSoundEffect",sound)
+a.Level = 0.75
+local b = Instance.new("DistortionSoundEffect",sound)
+b.Level = 0.75
+sound:Play()
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+	if newHealth == 0 then
+		print("Entity has killed the player")
+	else
+
+local entity = game.Workspace.Depth:FindFirstChildWhichIsA("BasePart") or game.Workspace.Depth:FindFirstChildWhichIsA("Part")
+local TweenService = game:GetService("TweenService")
+
+local function Moving(target, dur)
+    local tween_info = TweenInfo.new(dur, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    local tween = TweenService:Create(entity, tween_info, {CFrame = target})
+    tween:Play()
+    tween.Completed:Wait()
+end
+ 
+Moving(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame , 0.5)
+wait(0.4)
+
+local shadow = game:GetObjects("rbxassetid://11503625408")[1]
+local gui = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
+
+local sound = Instance.new("Sound",gui)
+sound.SoundId = "rbxassetid://131138845"
+local octave = Instance.new("PitchShiftSoundEffect",sound)
+octave.Octave = 0.5
+local level = Instance.new("DistortionSoundEffect",sound)
+level.Level = 0.97
+sound:Play()
+
+shadow.Parent = gui
+shadow.Visible = true
+local l__ImageLabel__1 = shadow.ImageLabel;
+local v2 = Random.new();
+local l__SizeValue__3 = shadow.SizeValue;
+local v4 = math.random(1, 6);
+if v4 == 1 then
+	l__ImageLabel__1.Image = "rbxassetid://94131794533904";
+end;
+if v4 == 2 then
+	l__ImageLabel__1.Image = "rbxassetid://94131794533904";
+end;
+if v4 == 3 then
+	l__ImageLabel__1.Image = "rbxassetid://94131794533904";
+end;
+if v4 == 4 then
+	l__ImageLabel__1.Image = "rbxassetid://94131794533904";
+end;
+if v4 == 5 then
+	l__ImageLabel__1.Image = "rbxassetid://94131794533904";
+end;
+if v4 == 6 then
+	l__ImageLabel__1.Image = "rbxassetid://94131794533904";
+end;
+shadow.Jumpscare:Play();
+for v5 = 1, 25 do
+local v6 = math.random(1, 3);
+	if v6 == 1 then
+		shadow.BackgroundColor3 = Color3.new(0, 0, 0);
+		l__ImageLabel__1.ImageColor3 = Color3.new(0, 0, 0);
+	end;
+	if v6 == 2 then
+		shadow.BackgroundColor3 = Color3.new(0, 1, 1);
+		l__ImageLabel__1.ImageColor3 = Color3.new(1, 1, 1);
+	end;
+	if v6 == 3 then
+		shadow.BackgroundColor3 = Color3.new(0, 1, 1);
+		l__ImageLabel__1.ImageColor3 = Color3.new(1, 0, 0);
+	end;
+		l__ImageLabel__1.Position = UDim2.new(v2:NextNumber(0.4, 0.6), 0, v2:NextNumber(0.45, 0.55), 0);
+		l__ImageLabel__1.Size = l__ImageLabel__1.Size + UDim2.new(l__SizeValue__3.Value, 0, l__SizeValue__3.Value, 0);
+		l__ImageLabel__1.Rotation = math.random(-10, 10);
+		l__SizeValue__3.Value = l__SizeValue__3.Value - 0.01;
+		wait(0.065);
+end;
+		l__ImageLabel__1.ImageColor3 = Color3.new(1, 1, 1);
+		shadow.BackgroundColor3 = Color3.new(0, 0, 0);
+		shadow.Visible = false;
+		shadow.Jumpscare:Stop()
+	    game.Players.LocalPlayer.Character.Humanoid:TakeDamage(1000)
+        game:GetService("ReplicatedStorage").GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Depth"
+local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+
+-- Display achievement
+achievementGiver({
+    Title = "You’re loser",
+    Desc = "I like blue =D",
+    Reason = "Can’t survival from Depth",
+    Image = "rbxassetid://129367069032604"
+})
+	end
+end)
+
+---====== Run entity ======---
+
+entity:Run()
